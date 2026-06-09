@@ -394,7 +394,7 @@ sudo systemctl start docker
 ### 4. Clonar o repositório
 
 ```bash
-git clone COLOQUE_AQUI_O_LINK_DO_REPOSITORIO
+git clone (https://github.com/ThiagoSpositoo/SpaceAgro_DEVOPS)
 cd SpaceAgro.DotNetApi_DEVOPS
 ```
 
@@ -545,7 +545,7 @@ Durante o vídeo de demonstração, devem ser apresentados:
 ### GitHub
 
 ```txt
-COLOQUE_AQUI_O_LINK_DO_REPOSITORIO
+(https://github.com/ThiagoSpositoo/SpaceAgro_DEVOPS)
 ```
 
 ### Vídeo no YouTube
