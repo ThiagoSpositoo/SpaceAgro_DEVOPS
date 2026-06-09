@@ -1,0 +1,48 @@
+services:
+  api-rm566462:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: spaceagro-dotnet-api-rm566462:latest
+    container_name: api-rm566462
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Docker
+      ASPNETCORE_URLS: http://+:8080
+      DB_PROVIDER: PostgreSQL
+      AUTO_CREATE_DATABASE: "true"
+      POSTGRES_CONN_STRING: Host=db-rm566462;Port=5432;Database=spaceagrodb;Username=spaceagro;Password=spaceagro123
+    depends_on:
+      db-rm566462:
+        condition: service_healthy
+    networks:
+      - spaceagro-network-rm566462
+
+  db-rm566462:
+    image: postgres:16
+    container_name: db-rm566462
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: spaceagrodb
+      POSTGRES_USER: spaceagro
+      POSTGRES_PASSWORD: spaceagro123
+    volumes:
+      - postgres-data-rm566462:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U spaceagro -d spaceagrodb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - spaceagro-network-rm566462
+
+volumes:
+  postgres-data-rm566462:
+
+networks:
+  spaceagro-network-rm566462:
+    driver: bridge
